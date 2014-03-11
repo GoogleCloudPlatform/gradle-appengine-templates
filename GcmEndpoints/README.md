@@ -46,7 +46,7 @@ dependencies {
     compile ('<your package name>:registration:v1-1.17.0-rc-SNAPSHOT') {
         exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
     }
-}    
+}
 ````
 We have to exclude httpclient because gradle will throw a warning about the module already being included by android and conflicts with the included version.
 
@@ -57,7 +57,7 @@ We have to exclude httpclient because gradle will throw a warning about the modu
 ````
 Registration regService;
 ````
-  
+
 In the `if (checkPlayServices())` block of `onCreate(Bundle savedInstance)`, after ensuring play services is installed but before registering in the background, instantiate the Registration Service
 ````
 Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
@@ -76,7 +76,7 @@ regService = builder.build();
 
 If you want registration to run everytime, remove the `if (regid.isEmpty())` check that surrounds `registerInBackground()`. This might be necessary because if you’ve previously run through the registration flow on the android client, it saves the regId to the preferences and proceeds to skip the registration step on further invocation.
 
-Now all we have to do is actually call the registration, modify `sendRegistrationIdToBackend()` to call our endpoint 
+Now all we have to do is actually call the registration, modify `sendRegistrationIdToBackend()` to call our endpoint, it should be noted that this is called in an AsyncTask because it is a network call.
 ````
 private void sendRegistrationIdToBackend(String regId) throws IOException {
     regService.register(regId).execute();
