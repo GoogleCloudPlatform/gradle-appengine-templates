@@ -3,7 +3,7 @@ HelloEndpoints : App Engine Java Endpoints Module
 
 Freemarker template for a simple Hello World App Engine application using Google Cloud Endpoints
 
-Connecting this template with an Android GCM Client :
+Connecting this template with an Android Application :
 
 Talking to your Endpoint
 
