@@ -1,0 +1,4 @@
+LICENSE
+
+The included templates are freely usable for any purpose.
+They are also AS-IS, and come with *no* warranty of any sort.
