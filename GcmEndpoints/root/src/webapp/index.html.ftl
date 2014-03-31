@@ -46,8 +46,10 @@
       gapi.client.load(apiName, apiVersion, callback, apiRoot);
     }
   </script>
-  // Load the Google APIs Client Library for JavaScript
-  // More info here : https://developers.google.com/api-client-library/javascript/reference/referencedocs
+  <!--
+   Load the Google APIs Client Library for JavaScript
+   More info here : https://developers.google.com/api-client-library/javascript/reference/referencedocs
+  -->
   <script src="https://apis.google.com/js/client.js?onload=init"></script>
 </body>
 </html>
