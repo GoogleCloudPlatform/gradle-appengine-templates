@@ -24,7 +24,7 @@
 
   <parameter id="packageName" name="Package name" type="string" constraints="package|nonempty" default="com.mycompany.myapp"/>
   <parameter id="appId" name="Application Id" type="string" constraints="nonempty" default="myApplicationId"/>
-  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.8.9" />
+  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.1" />
 
   <globals file="globals.xml.ftl"/>
   <execute file="recipe.xml.ftl"/>
