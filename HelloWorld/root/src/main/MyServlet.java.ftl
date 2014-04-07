@@ -17,7 +17,7 @@ public class MyServlet extends HttpServlet {
         String name = (String) req.getParameter("name");
         resp.setContentType("text/plain");
         if(name == null) {
-          resp.getWriter().println("Please enter a name");
+            resp.getWriter().println("Please enter a name");
         }
         resp.getWriter().println("Hello " + name);
     }
