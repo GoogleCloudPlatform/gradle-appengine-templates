@@ -34,20 +34,22 @@ dependencies {
     // required for GCM
     compile 'com.google.android.gm:play-services:3.1.+'
 
-    compile ('com.google.http-client:google-http-client-android:1.17.0-rc') {
+    compile ('com.google.http-client:google-http-client-android:<google-client-lib-version>') {
         exclude (group: 'com.google.android', module: 'android')
         exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
     }
 
     // custom endpoints (includes google-api-client automatically)
-    compile ('<your package name>:messaging:v1-1.17.0-rc-SNAPSHOT') {
+    compile ('<your package name>:messaging:v1-<google-client-lib-version>-SNAPSHOT') {
         exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
     }
-    compile ('<your package name>:registration:v1-1.17.0-rc-SNAPSHOT') {
+    compile ('<your package name>:registration:v1-<google-client-lib-version>-SNAPSHOT') {
         exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
     }
 }
 ````
+The client library version for generated endpoints is the latest version of the google client libraries that is available (http://mvnrepository.com/artifact/com.google.api-client/google-api-client)
+You can also see what the generated client library versions are by inspecting the zip file that came down when the gradle task "appengineEndpointsGetClientLibs" was called in the build/client-libs directory
 We have to exclude httpclient because gradle will throw a warning about the module already being included by android and conflicts with the included version.
 
 - Modifications to the Android Manifest File (These should have already happened when following the instructions from the GCM guide)
