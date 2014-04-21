@@ -32,7 +32,7 @@ repositories {
 
 dependencies {
     // required for GCM
-    compile 'com.google.android.gm:play-services:3.1.+'
+    compile 'com.google.android.gms:play-services:3.1.+'
 
     compile ('com.google.http-client:google-http-client-android:<google-client-lib-version>') {
         exclude (group: 'com.google.android', module: 'android')
