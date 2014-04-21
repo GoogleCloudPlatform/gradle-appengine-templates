@@ -5,7 +5,7 @@ You can use [Google App Engine](https://developers.google.com/appengine) backend
 
 All of these backends are designed to be hosted on App Engine (which provides autoscaling and high-availability out-of-the-box), and can be used under App Engine's [free resource quotas](https://developers.google.com/appengine/docs/quotas).
 
-# Usage
+# 1. Usage
 
 This repository contains three backend template types, which can be added into your Android app by navigating to "Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend".
 
@@ -21,12 +21,22 @@ In the dialog that appears, choose one out of the following template types:
 
 For detailed instructions on how to use each of these templates to add a backend to your Android app see the individual template directories ([HelloWorld](/HelloWorld), [HelloEndpoints](/HelloEndpoints) or [GcmEndpoints](/GcmEndpoints)).
 
-# Prerequisites
+# 2. Prerequisites
 
 App Engine requires Java 7 SDK. You can check which SDK your project is using by navigating to "File &rarr; Project Structure...".
 
+![JDK settings in File &rarr; Project Structure...](/doc/img/jdk-settings.png)
+
 These templates use [FreeMarker](http://freemarker.org) (but it is not required if you are adding these templates via Android Studio).
 
-# Troubleshooting
+# 3. Troubleshooting
 
 If you have any problems adding these backends to your Android applications, contact us on [Android Developers G+ community](https://plus.google.com/+AndroidDevelopers) or write us a question on StackOverflow using [google-app-engine](http://stackoverflow.com/questions/tagged/google-app-engine) or [google-cloud-endpoints](http://stackoverflow.com/questions/tagged/google-app-engine) tags.
+
+## 3.1. Useful links
+
+Click on the following links to get more information about:
+* [Google App Engine](https://developers.google.com/appengine/),
+* [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints/),
+* [Google Cloud Messaging](http://developer.android.com/google/gcm/index.html),
+* [Android Studio](developer.android.com/sdk/installing/studio.html).
