@@ -31,6 +31,7 @@ To ensure that your backend started successfully, navigate to [http://localhost:
 
 !["HelloWorld" backend running in local Java development server](/doc/img/devappserver-gcm.png)
 
+<!---
 # 2. Connecting your Android app to the backend
 
 First of all, you need to add the [permissions required by Google Cloud Messaging](http://developer.android.com/google/gcm/client.html#manifest) into the Android manifest of your app (if they're not already there). To achieve this, add the following lines into your `AndroidManifest.xml` file:
@@ -82,3 +83,4 @@ Don't forget to replace `<your package name>` with your actual package name in `
 If prompted by Android Studio, use "Sync Now" hyperlink in the top-right corner to inform the IDE about the changes to Gradle build files.
 
 TBD: minimal set of client-side code which would attempt to register with the backend onCreate and would have a simple BroadcastReceiver to display a toast when the server sends a message.
+-->
