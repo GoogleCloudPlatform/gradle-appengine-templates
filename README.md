@@ -36,7 +36,7 @@ If you have any problems adding these backends to your Android applications, con
 ## 3.1. Useful links
 
 Click on the following links to get more information about:
-* [Google App Engine](https://developers.google.com/appengine/),
-* [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints/),
-* [Google Cloud Messaging](http://developer.android.com/google/gcm/index.html),
-* [Android Studio](developer.android.com/sdk/installing/studio.html).
+* [Google App Engine](https://developers.google.com/appengine/)
+* [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints/)
+* [Google Cloud Messaging](http://developer.android.com/google/gcm/index.html)
+* [Android Studio](developer.android.com/sdk/installing/studio.html)
