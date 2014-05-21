@@ -15,4 +15,6 @@
 
     <mkdir at="${webOut}/js" />
     <mkdir at="${webOut}/css" />
+
+    <open file="${webOut}/WEB-INF/appengine-web.xml"/>
 </recipe>
