@@ -37,31 +37,15 @@ First of all, you need to add the permission to access internet into the Android
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-Secondly, install the client libraries generated for your newly-added Endpoints API into your [local Maven repository](https://maven.apache.org/guides/introduction/introduction-to-repositories.html) by selecting your backend module in Android Studio's "Project" pane and navigating to "Tools &rarr; Google Cloud Tools &rarr; Install Client Libraries".
-
-!["Tools &rarr; Google Cloud Tools &rarr; Install Client Libraries" ](/doc/img/install-client-libraries.png)
-
-Then add the dependencies on the installed client libraries to your Android app's `build.gradle` file:
+Secondly, add the compile dependency on the generated backend's client libraries into your Android app's `build.gradle` file:
 
 ```gradle
-repositories {
-    // Reference the local Maven repository
-    mavenLocal()
-}
-
 dependencies {
-    compile ('com.google.http-client:google-http-client-android:1.18.0-rc') {
-        exclude (group: 'com.google.android', module: 'android')
-        exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
-    }
-
-    compile ('<your package name>:myApi:v1-1.18.0-rc-SNAPSHOT') {
-        exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
-    }
+    compile project(path: ':backend', configuration: 'android-endpoints')
 }
 ```
 
-Don't forget to replace `<your package name>:myApi:v1-1.18.0-rc-SNAPSHOT` with your actual package name! (In this example, the line would be `com.google.sampleapp.backend:myApi:v1-1.18.0-rc-SNAPSHOT`.)
+Don't forget to replace `:backend` with your actual backend module's name!
 
 If prompted by Android Studio, use "Sync Now" hyperlink in the top-right corner to inform the IDE about the changes to Gradle build files.
 
@@ -75,13 +59,17 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
 
     public EndpointsAsyncTask() {
         MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                .setRootUrl("http://10.0.2.2:8080/_ah/api/") // 10.0.2.2 is localhost's IP address in Android emulator
+                // options for running against local devappserver
+                // - 10.0.2.2 is localhost's IP address in Android emulator
+                // - turn off compression when running against local devappserver
+                .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                 .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                     @Override
                     public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
                         abstractGoogleClientRequest.setDisableGZipContent(true);
                     }
                 });
+                // end options for devappserver
 
         myApiService = builder.build();
     }
@@ -112,7 +100,7 @@ new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
 
 ## 2.1. Testing your app in an emulator
 
-If you have installed client libraries, added build dependencies to Android app's `build.gradle` file, granted the internet access permission to your `AndroidManifest.xml` file and added an `EndpointsAsyncTask` invokation to one of your Android app activities as per steps above, you should be all set to test your backend locally!
+If you have granted the internet access permission to your `AndroidManifest.xml` file, added compile dependencies to Android app's `build.gradle` file, and added an `EndpointsAsyncTask` invokation to one of your Android app activities as per steps above, you should be all set to test your backend locally!
 
 First, launch your backend locally as described in section 1.1. and ensure that you can access it via [http://localhost:8080](http://localhost:8080). Then, change the run configuration back to your Android app and run the Android emulator.
 
