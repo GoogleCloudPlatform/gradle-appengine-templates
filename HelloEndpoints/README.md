@@ -156,6 +156,4 @@ with a single line
 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
 ```
 
-Finally, to ensure that the Project ID changes in `appengine-web.xml` file (as described in previous section) are reflected in client libraries which contain `MyApi.Builder`, re-install these libraries. To achieve this select your backend module in Android Studio's "Project" pane and navigate to "Tools &rarr; Google Cloud Tools &rarr; Install Client Libraries", as described in section 2.
-
 At this point you should be all set to run your Android app in an emulator or on the physical device, and successfully communicate with your new App Engine backend!
