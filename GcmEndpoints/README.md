@@ -33,6 +33,30 @@ To ensure that your backend started successfully, navigate to [http://localhost:
 
 # 2. Connecting your Android app to the backend
 
+## 2.1. Obtaining Google Cloud Messaging API key
+
+Before testing the application, you will need to obtain a Google Cloud Messaging API key. To begin with, create a new project on [Google Developers Console](https://console.developers.google.com) (or choose an existing project, if you have one already).
+
+![Project creation in Google Developers Console](/doc/img/new-developer-console-project.png)
+
+Once the project is created, note down the project number (in red rectangle below): this will be your Google Cloud Messaging [sender ID](http://developer.android.com/google/gcm/gcm.html#senderid).
+
+![Project number in Google Developers Console](/doc/img/developer-console-project.png)
+
+While you're at Google Developers Console, navigate to "APIs & auth" section and in the displayed list of APIs, turn the "Google Cloud Messaging for Android" toggle to ON.
+
+![Enabling "Google Cloud Messaging for Android" API in Google Developers Console](/doc/img/gcm-api.png)
+
+To obtain an API key (which will be required soon), select "APIs & auth &rarr; Credentials" from the sidebar and click on "Create new key" under "Public API access". In the "Create a new key" dialog, click on "Server key" and in the resulting configuration dialog, supply the "0.0.0.0/0" IP address for testing purposes.
+
+![Creating a new server key in Google Developers Console](/doc/img/developer-console-api.png)
+
+Note down the generated [API key](http://developer.android.com/google/gcm/gcm.html#apikey) (it starts with `AIza...`).
+
+## 2.2. Registering devices with Google Cloud Messaging backend
+
+Before any messages can be sent from a Google Cloud Messaging backend to the devices, these devices need to be registered with GCM backend. The steps below explain how to extend your Android application to register it with GCM.
+
 First of all, you need to add the [permissions required by Google Cloud Messaging](http://developer.android.com/google/gcm/client.html#manifest) into the Android manifest of your app (if they're not already there). To achieve this, add the following lines into your `AndroidManifest.xml` file:
 
 ```xml
@@ -45,40 +69,221 @@ First of all, you need to add the [permissions required by Google Cloud Messagin
 <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 ```
 
-Secondly, install the client libraries generated for your newly-added Endpoints API into your [local Maven repository](https://maven.apache.org/guides/introduction/introduction-to-repositories.html) by selecting your backend module in Android Studio's "Project" pane and navigating to "Tools &rarr; Google Cloud Tools &rarr; Install Client Libraries".
-
-!["Tools &rarr; Google Cloud Tools &rarr; Install Client Libraries" ](/doc/img/install-client-libraries.png)
-
-Then add the dependencies on the installed client libraries to your Android app's `build.gradle` file:
+Secondly, add the compile dependencies into your Android app's `build.gradle` file:
 
 ```gradle
-repositories {
-    // Reference the local Maven repository
-    mavenLocal()
-}
-
 dependencies {
-    // Make sure that you have installed "Extras -> Google Play services" component in Android SDK Manager
-    compile 'com.google.android.gms:play-services:3.1.+'
+    compile "com.google.android.gms:play-services:3.1.+"
+    compile project(path: ':backend', configuration: 'android-endpoints')
+}
+```
 
-    compile ('com.google.http-client:google-http-client-android:1.18.0-rc') {
-        exclude (group: 'com.google.android', module: 'android')
-        exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
+The first dependency includes Google Play Services client libraries (which are required for Google Cloud Messaging), the second dependency includes generated backend's client libraries. Don't forget to replace `:backend` with your actual backend module name!
+
+If prompted by Android Studio, use "Sync Now" hyperlink in the top-right corner to inform the IDE about the changes to Gradle build files.
+
+Finally, you can start calling the generated `RegistrationEndpoint` from your Android app to register devices with your new Google Cloud Messaging backend. The following code snippet illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) which registers the user's device:
+
+```java
+class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
+    private Registration regService;
+    private GoogleCloudMessaging gcm;
+    private Context context;
+
+    // TODO: change to your own sender ID to Google Developers Console project number, as per instructions above
+    private static final String SENDER_ID = "1234567890123"; 
+
+    public GcmRegistrationAsyncTask() {
+        Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+            // need setRootUrl and Initializer for running against devappserver, otherwise they can be skipped
+            .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+            .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+                @Override
+                public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
+                    abstractGoogleClientRequest.setDisableGZipContent(true);
+                }
+            });
+            // end of optional local run code
+
+        regService = builder.build();
     }
 
-    compile ('<your package name>:messaging:v1-1.18.0-rc-SNAPSHOT') {
-        exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
+    @Override
+    protected String doInBackground(Context... params) {
+        context = params[0];
+
+        String msg = "";
+        try {
+            if (gcm == null) {
+                gcm = GoogleCloudMessaging.getInstance(context);
+            }
+            String regId = gcm.register(SENDER_ID);
+            msg = "Device registered, registration ID=" + regId;
+
+            // You should send the registration ID to your server over HTTP,
+            // so it can use GCM/HTTP or CCS to send messages to your app.
+            // The request to your server should be authenticated if your app
+            // is using accounts.
+            regService.register(regId).execute();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            msg = "Error :" + ex.getMessage();
+        }
+        return msg;
     }
-    compile ('<your package name>:registration:v1-1.18.0-rc-SNAPSHOT') {
-        exclude (group: 'org.apache.httpcomponents', module: 'httpclient')
+
+    @Override
+    protected void onPostExecute(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        Logger.getLogger("REGISTRATION").log(Level.INFO, msg);
     }
 }
 ```
 
-Don't forget to replace `<your package name>` with your actual package name in `<your package name>:messaging:v1-1.18.0-rc-SNAPSHOT'` and `<your package name>:registration:v1-1.18.0-rc-SNAPSHOT'`!
+Don't forget to replace `SENDER_ID` with your actual Google Developers Console project number!
 
-(In this example, the resulting compile dependencies would be `com.google.sampleapp.backend:messaging:v1-1.18.0-rc-SNAPSHOT` and `com.google.sampleapp.backend:registration:v1-1.18.0-rc-SNAPSHOT`.)
+To make the actual registration call from your app, invoke this AsyncTask from one of your Android activities. For example, to execute it from `MainActivity` class, add the following code snippet to `MainActivity.onCreate` method:
 
-If prompted by Android Studio, use "Sync Now" hyperlink in the top-right corner to inform the IDE about the changes to Gradle build files.
+```java
+new GcmRegistrationAsyncTask().execute(this);
+```
 
-TBD: minimal set of client-side code which would attempt to register with the backend onCreate and would have a simple BroadcastReceiver to display a toast when the server sends a message.
+## 2.3. Testing device registration in an emulator
+
+If you have granted the internet access permission to your `AndroidManifest.xml` file, added compile dependencies to Android app's `build.gradle` file, and added an `GcmRegistrationAsyncTask` invokation to one of your Android app activities as per steps above, you should be all set to test the device registration with your backend locally!
+
+To begin with, make sure that your Android Virtual Device is using Google APIs System Image as illustrated in the screenshot below.
+
+![Android Virtual Device configuration containing Google APIs System Image Target](/doc/img/emulator-avd.png)
+
+Then, launch your backend locally as described in section 1.1. and ensure that you can access it via [http://localhost:8080](http://localhost:8080). If you can access the backend locally, change the run configuration back to your Android app and run the Android emulator.
+
+If everything goes well, you should see the following toast in your app:
+
+![Emulator successfully registered with "GcmEndpoints" backend](/doc/img/emulator-gcm.png)
+
+## 2.4. Showing push notifications from GCM backend
+
+In order to show the push notifications coming from the generated backend, you need to add two more simple classes into your Android client: `GcmIntentService` and `GcmBroadcastReceiver`.
+
+Here is the source code for `GcmIntentService.java`:
+
+```java
+public class GcmIntentService extends IntentService {
+
+    public GcmIntentService() {
+        super("GcmIntentService");
+    }
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+        // The getMessageType() intent parameter must be the intent you received
+        // in your BroadcastReceiver.
+        String messageType = gcm.getMessageType(intent);
+
+        if (extras != null && !extras.isEmpty()) {  // has effect of unparcelling Bundle
+            // Since we're not using two way messaging, this is all we really to check for
+            if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+                Logger.getLogger("GCM_RECEIVED").log(Level.INFO, extras.toString());
+
+                showToast(extras.getString("message"));
+            }
+        }
+        GcmBroadcastReceiver.completeWakefulIntent(intent);
+    }
+
+    protected void showToast(final String message) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+}
+```
+
+Similarly, here is the source code for `GcmBroadcastReceiver.java`:
+
+```java
+public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        // Explicitly specify that GcmIntentService will handle the intent.
+        ComponentName comp = new ComponentName(context.getPackageName(),
+                GcmIntentService.class.getName());
+        // Start the service, keeping the device awake while it is launching.
+        startWakefulService(context, (intent.setComponent(comp)));
+        setResultCode(Activity.RESULT_OK);
+    }
+}
+```
+
+After adding these classes to your Android application, register them by adding the following snipped into your `AndroidManifest.xml` file (inside `<application>` tag).
+
+```xml
+<receiver
+    android:name=".GcmBroadcastReceiver"
+    android:permission="com.google.android.c2dm.permission.SEND" >
+    <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        <category android:name="MY_PACKAGE" />
+    </intent-filter>
+</receiver>
+<service android:name=".GcmIntentService" />
+```
+
+Do not forget to replace `MY_PACKAGE` in the snippet above with your package name.
+
+## 2.5. Deploying the backend live to App Engine
+
+If your backend is working locally, you can deploy it to Google App Engine. To begin with, create a new project on [Google Developers Console](https://console.developers.google.com) (or choose an existing project, if you have one already).
+
+![Project creation in Google Developers Console](/doc/img/new-developer-console-project.png)
+Note down the "Project ID" (in this case "android-app-backend") and switch back to Android Studio. In Android Studio, open `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file and change
+```xml
+<application>myApplicationId</application>
+```
+to contain your real Project ID (in this case, again, "android-app-backend"):
+```xml
+<application>android-app-backend</application>
+```
+
+If you have started the local Java development server in an earlier step, stop it by opening "Run" tool window (1), choosing your backend run session (2) and pressing the red "Stop" button (3). 
+
+![Stop local Java development server](/doc/img/stop-devappserver-helloworld.png)
+
+Then, switch to the "Terminal" tab and execute `./gradlew backend:appengineUpdate` command:
+
+![Deployment from terminal, step 1](/doc/img/update-helloworld-1.png)
+
+If you are running this task for the first time, you will be prompted to sign-in with your Google Account. After choosing the account and signing-in, give permissions to Google App Engine's "appcfg" tool and copy-paste the generated key back into Terminal:
+
+![App Engine permissions request](/doc/img/app-engine-permissions.png)
+
+![Deployment from terminal, step 1](/doc/img/update-helloworld-2.png)
+
+After you paste the key and hit Return, your backend will be deployed to App Engine and will be accessible live at [https://&lt;Project ID&gt;.appspot.com](https://cloud.google.com). (In this example, the backend would be hosted at [https://android-app-backend.appspot.com](https://android-app-backend.appspot.com).)
+
+## 2.3. Testing against a deployed backend
+
+Once you have deployed your backend to App Engine, you can connect your Android app to it by modifying `EndpointsAsyncTask` class defined in section 2 above. In particular, replace the lines
+```java
+MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+        .setRootUrl("http://10.0.2.2:8080/_ah/api/") // 10.0.2.2 is localhost's IP address in Android emulator
+        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+            @Override
+            public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
+                abstractGoogleClientRequest.setDisableGZipContent(true);
+            }
+        });
+```
+with a single line
+```java
+MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
+```
+
+At this point you should be all set to run your Android app in an emulator or on the physical device, and successfully communicate with your new App Engine backend!
