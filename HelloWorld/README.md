@@ -19,7 +19,7 @@ Enter the module/package names for your new backend, and choose the "client" mod
 
 ![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-dialog-step-2.png)
 
-Module name which you've entered above (marked with red 1) will be used in your Android Studio project. Package name (marked with red 2) will be used for all classes imported from this template, as shown in the image below.
+Module name which you've entered above (marked with red **1**) will be used in your Android Studio project. Package name (marked with red **2**) will be used for all classes imported from this template, as shown in the image below.
 
 ![Added "HelloWorld" backend. Red numbers 1 and 2 indicate that the module name and the package name came from "New App Engine Module" dialog](/doc/img/added-backend-helloworld.png)
 
