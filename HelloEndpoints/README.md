@@ -31,26 +31,9 @@ To ensure that your backend started successfully, navigate to [http://localhost:
 
 # 2. Connecting your Android app to the backend
 
-First of all, you need to add the permission to access internet into the Android manifest of your app (if it's not already there). To achieve this, copy and paste the following line into your `AndroidManifest.xml` file:
+To send requests to the added Cloud Endpoints backend API, you can start calling generated client libraries from your Android app. These client libraries are automatically re-built 
 
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-```
-
-Secondly, add the compile dependency on the generated backend's client libraries into your Android app's `build.gradle` file:
-
-```gradle
-dependencies {
-    compile project(path: ':backend', configuration: 'android-endpoints')
-}
-```
-
-Don't forget to replace `:backend` with your actual backend module's name!
-
-If prompted by Android Studio, use "Sync Now" hyperlink in the top-right corner to inform the IDE about the changes to Gradle build files.
-
-
-Finally, you can start calling generated client libraries from your Android app to send requests to Cloud Endpoints backend API. The following code snippet illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) which makes the request to the backend and prints the incoming result string to a [toast](http://developer.android.com/guide/topics/ui/notifiers/toasts.html) in a given context:
+The following code snippet illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) which makes the request to the backend and prints the incoming result string to a [toast](http://developer.android.com/guide/topics/ui/notifiers/toasts.html) in a given context:
 
 ```java
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
