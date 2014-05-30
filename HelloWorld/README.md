@@ -7,13 +7,17 @@ If you need more abstractions/protections that Endpoints provide (like automated
 
 # 1. Adding a backend in Android Studio
 
-To add the backend to your existing Android app from this backend template, open Android Studio ([installation instructions](https://developer.android.com/sdk/installing/studio.html)) and navigate to "Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend".
+To add the backend to your existing Android app from this backend template, open Android Studio ([installation instructions](https://developer.android.com/sdk/installing/studio.html)) and navigate to "File &rarr; New Module..." or right-click on your project and choose "New &rarr; Module".
 
-![Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend](/doc/img/add-app-engine-backend-menu-scaled.png)
+![New &rarr; Module](/doc/img/add-app-engine-backend-menu-scaled.png)
 
-In the dialog that appears, choose "App Engine Java Servlet Module" and enter module/package names for your new backend.
+In the "New Module" that appears, choose "App Engine Java Servlet Module".
 
-![Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend](/doc/img/add-app-engine-backend-menu-helloworld.png)
+![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-menu-helloworld.png)
+
+Enter the module/package names for your new backend, and choose the "client" module in your project which contains your Android app. 
+
+![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-menu-dialog-step-2.png)
 
 Module name which you've entered above (marked with red 1) will be used in your Android Studio project. Package name (marked with red 2) will be used for all classes imported from this template, as shown in the image below.
 
