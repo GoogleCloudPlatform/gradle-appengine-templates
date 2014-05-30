@@ -15,9 +15,9 @@ In the "New Module" that appears, choose "App Engine Java Servlet Module".
 
 ![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-menu-helloworld.png)
 
-Enter the module/package names for your new backend, and choose the "client" module in your project which contains your Android app. 
+Enter the module/package names for your new backend, and choose the "client" module in your project which contains your Android app. The client module will be set up to call your newly generated backend.
 
-![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-menu-dialog-step-2.png)
+![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-dialog-step-2.png)
 
 Module name which you've entered above (marked with red 1) will be used in your Android Studio project. Package name (marked with red 2) will be used for all classes imported from this template, as shown in the image below.
 
@@ -37,13 +37,13 @@ To ensure that your backend started successfully, navigate to [http://localhost:
 
 # 2. Connecting your Android app to the backend
 
-First of all, you need to add the permission to access internet into the Android manifest of your app (if it's not already there). To achieve this, copy and paste the following line into your `AndroidManifest.xml` file:
+When you created a backend module, your client module has been set up to access internet. In particular, the following permission has been added into your `AndroidManifest.xml` file:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-Secondly, you need to make an HTTP request from your Android app to call this backend. The following code snippet illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) which makes the HTTP request to the backend and prints the incoming result string to a [toast](http://developer.android.com/guide/topics/ui/notifiers/toasts.html) in a given context:
+To call this backend from your Android app, you simply need to make an HTTP request. The following code snippet illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) which makes the HTTP request to the backend and prints the incoming result string to a [toast](http://developer.android.com/guide/topics/ui/notifiers/toasts.html) in a given context:
 
 ```java
 class ServletPostAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
@@ -85,12 +85,12 @@ class ServletPostAsyncTask extends AsyncTask<Pair<Context, String>, Void, String
 
 Finally, you need to invoke this AsyncTask from one of your Android activities. For example, to execute it from `MainActivity` class, add the following code snippet to `MainActivity.onCreate` method:
 ```java
-new ServletPostAsyncTask().execute(new Pair<Context, String>(this, "my favorite name"));
+new ServletPostAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
 ```
 
 ## 2.1. Testing your app in an emulator
 
-If you have added the internet access permission to your `AndroidManifest.xml` file, created a `ServletPostAsyncTask` and added its invokation to one of your Android app activities as per steps above, you should be all set to test your backend locally!
+If you have created a `ServletPostAsyncTask` and added its invokation to one of your Android app activities as per steps above, you should be all set to test your backend locally!
 
 First, launch your backend locally as described in section 1.1. and ensure that you can access it via [http://localhost:8080](http://localhost:8080). Then, change the run configuration back to your Android app and run the Android emulator.
 
