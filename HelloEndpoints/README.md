@@ -27,7 +27,7 @@ As soon as the backend module is added to your project and Gradle sync finishes,
 
 ![Created run configuration](/doc/img/run-configuration.png)
 
-Launching this run configuration will invoke `appengineRun` task in [Gradle plug-in for App Engine](https://github.com/GoogleCloudPlatform/gradle-appengine-plugin), which in turn will start the local App Engine [Java development server](https://developers.google.com/appengine/docs/java/tools/devserver).
+Rebuild your project (via "Build &rarr; Rebuild Project") and launch this run configuration. It will invoke `appengineRun` task in [Gradle plug-in for App Engine](https://github.com/GoogleCloudPlatform/gradle-appengine-plugin), which in turn will start the local App Engine [Java development server](https://developers.google.com/appengine/docs/java/tools/devserver).
 
 To ensure that your backend started successfully, navigate to [http://localhost:8080](http://localhost:8080). If everything went well, you should see the following page:
 
