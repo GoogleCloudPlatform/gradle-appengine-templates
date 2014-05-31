@@ -46,9 +46,13 @@ Choose a "Create a new project" option to create a new [Google Developers Consol
 
 ![Project creation in Google Developers Console](/doc/img/new-developer-console-project.png)
 
-Once you select or create a project, it will have "Google Cloud Messaging for Android" API enabled automatically. In the following configuration dialog, the "0.0.0.0/0" IP address will be supplied by default for testing purposes.
+Once you select or create a project, it will have "Google Cloud Messaging for Android" API enabled automatically. In the following configuration dialog, you can use the supplied "0.0.0.0/0" IP address for testing purposes.
 
 ![Creating a new server key in Google Developers Console](/doc/img/developer-console-api.png)
+
+Click "Create" and the API key for server applications will be generated for you.
+
+![Server applications API key in Google Developers Console](/doc/img/developer-console-key.png)
 
 Copy the generated [API key](http://developer.android.com/google/gcm/gcm.html#apikey) (in a red rectangle, starts with `AIza...`) back into `appengine-web.xml` file, replacing
 ```xml
