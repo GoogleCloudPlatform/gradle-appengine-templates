@@ -73,7 +73,7 @@ Before any messages can be sent from a Google Cloud Messaging backend to the dev
 
 When you added this backend module to your project, the [required permissions, needed by Google Cloud Messaging](http://developer.android.com/google/gcm/client.html#manifest) have been added into the Android manifest of your app, and the required build dependencies have been added to your app's `build.gradle` file.
 
-Furthermore, a `RegistrationEndpoint` Cloud Endpoints API has been automatically generated for you, so that you could start calling this endpoint from your Android app to register devices with your new Google Cloud Messaging backend.
+Furthermore, a `RegistrationEndpoint` [Cloud Endpoints API](https://developers.google.com/appengine/docs/java/endpoints/) has been automatically generated for you, so that you could start calling this endpoint from your Android app to register devices with your new Google Cloud Messaging backend.
 
 Here is an example code snippet which illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) to register the user's device with your new backend:
 
@@ -233,10 +233,14 @@ Do not forget to replace `MY_PACKAGE` in the snippet above with your package nam
 
 ## 2.5. Deploying the backend live to App Engine
 
-If your backend is working locally, you can deploy it to Google App Engine. To begin with, create a new project on [Google Developers Console](https://console.developers.google.com) (or choose an existing project, if you have one already).
+If your backend is working locally, you can deploy it to Google App Engine. To begin with, associate your backend [Google Developers Console](https://console.developers.google.com) project which you created (or re-used) in step 2.1.
 
-![Project creation in Google Developers Console](/doc/img/new-developer-console-project.png)
-Note down the "Project ID" (in this case "android-app-backend") and switch back to Android Studio. In Android Studio, open `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file and change
+Go back to the Developers Console and note down the project ID (in the red rectangle below).
+
+![Project ID in Google Developers Console](/doc/img/new-developer-console-project-id.png)
+
+
+Then, open `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file in Android Studio and change
 ```xml
 <application>myApplicationId</application>
 ```
@@ -263,7 +267,7 @@ After you paste the key and hit Return, your backend will be deployed to App Eng
 
 ## 2.3. Testing against a deployed backend
 
-Once you have deployed your backend to App Engine, you can connect your Android app to it by modifying `EndpointsAsyncTask` class defined in section 2 above. In particular, replace the lines
+Once you have deployed your backend to App Engine, you can connect your Android app to it by modifying `GcmRegistrationAsyncTask` class defined in section 2 above. In particular, replace the lines
 ```java
 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
         .setRootUrl("http://10.0.2.2:8080/_ah/api/") // 10.0.2.2 is localhost's IP address in Android emulator
