@@ -42,15 +42,15 @@ To ensure that your backend started successfully, navigate to [http://localhost:
 
 Before testing the application, you will need to obtain a Google Cloud Messaging API key. Open the `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file (it should have been opened by default when you generated the backend), and navigate to this link: [https://console.developers.google.com/flows/enableapi?apiid=googlecloudmessaging&keyType=SERVER_SIDE&r=0.0.0.0/0](https://console.developers.google.com/flows/enableapi?apiid=googlecloudmessaging&keyType=SERVER_SIDE&r=0.0.0.0/0).
 
-Choose a "Create a new project" option to create a new [Google Developers Console](https://console.developers.google.com) project (or choose an existing project, if you have one already), and click "Continue".
-
 ![Project creation in Google Developers Console](/doc/img/new-developer-console-project.png)
+
+Choose a "Create a new project" option to create a new [Google Developers Console](https://console.developers.google.com) project (or choose an existing project, if you have one already), and click "Continue".
 
 Once you select or create a project, it will have "Google Cloud Messaging for Android" API enabled automatically. In the following configuration dialog, you can use the supplied "0.0.0.0/0" IP address for testing purposes.
 
 ![Creating a new server key in Google Developers Console](/doc/img/developer-console-api.png)
 
-Click "Create" and the API key for server applications will be generated for you.
+Click "Create" to get the API key for server applications generated for you.
 
 ![Server applications API key in Google Developers Console](/doc/img/developer-console-key.png)
 
@@ -69,34 +69,13 @@ Finally, go back to your project's overview in [Google Developers Console](https
 
 ## 2.2. Registering devices with Google Cloud Messaging backend
 
-Before any messages can be sent from a Google Cloud Messaging backend to the devices, these devices need to be registered with GCM backend. The steps below explain how to extend your Android application to register it with GCM.
+Before any messages can be sent from a Google Cloud Messaging backend to the devices, these devices need to be registered with a GCM backend.
 
-First of all, you need to add the [permissions required by Google Cloud Messaging](http://developer.android.com/google/gcm/client.html#manifest) into the Android manifest of your app (if they're not already there). To achieve this, add the following lines into your `AndroidManifest.xml` file:
+When you added this backend module to your project, the [required permissions, needed by Google Cloud Messaging](http://developer.android.com/google/gcm/client.html#manifest) have been added into the Android manifest of your app, and the required build dependencies have been added to your app's `build.gradle` file.
 
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.WAKE_LOCK" />
-<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+Furthermore, a `RegistrationEndpoint` Cloud Endpoints API has been automatically generated for you, so that you could start calling this endpoint from your Android app to register devices with your new Google Cloud Messaging backend.
 
-<permission android:name="com.example.gcm.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-<uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
-```
-
-Secondly, add the compile dependencies into your Android app's `build.gradle` file:
-
-```gradle
-dependencies {
-    compile "com.google.android.gms:play-services:3.1.+"
-    compile project(path: ':backend', configuration: 'android-endpoints')
-}
-```
-
-The first dependency includes Google Play Services client libraries (which are required for Google Cloud Messaging), the second dependency includes generated backend's client libraries. Don't forget to replace `:backend` with your actual backend module name!
-
-If prompted by Android Studio, use "Sync Now" hyperlink in the top-right corner to inform the IDE about the changes to Gradle build files.
-
-Finally, you can start calling the generated `RegistrationEndpoint` from your Android app to register devices with your new Google Cloud Messaging backend. The following code snippet illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) which registers the user's device:
+Here is an example code snippet which illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) to register the user's device with your new backend:
 
 ```java
 class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
@@ -155,7 +134,7 @@ class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
 }
 ```
 
-Don't forget to replace `SENDER_ID` with your actual Google Developers Console project number!
+Don't forget to replace `SENDER_ID` in the snippet above with your actual Google Developers Console project number!
 
 To make the actual registration call from your app, invoke this AsyncTask from one of your Android activities. For example, to execute it from `MainActivity` class, add the following code snippet to `MainActivity.onCreate` method:
 
@@ -165,7 +144,7 @@ new GcmRegistrationAsyncTask().execute(this);
 
 ## 2.3. Testing device registration in an emulator
 
-If you have granted the internet access permission to your `AndroidManifest.xml` file, added compile dependencies to Android app's `build.gradle` file, and added an `GcmRegistrationAsyncTask` invokation to one of your Android app activities as per steps above, you should be all set to test the device registration with your backend locally!
+If you have added an `GcmRegistrationAsyncTask` invokation to one of your Android app activities as per steps above (and replaced `SENDER_ID` with your actual Google Developers Console project number), you should be all set to test the device registration with your backend locally!
 
 To begin with, make sure that your Android Virtual Device is using Google APIs System Image as illustrated in the screenshot below.
 
