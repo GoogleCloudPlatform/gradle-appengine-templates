@@ -88,7 +88,7 @@ class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
 
     public GcmRegistrationAsyncTask() {
         Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-            // need setRootUrl and Initializer for running against devappserver, otherwise they can be skipped
+            // Need setRootUrl and setGoogleClientRequestInitializer only for local testing, otherwise they can be skipped
             .setRootUrl("http://10.0.2.2:8080/_ah/api/")
             .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                 @Override
@@ -121,7 +121,7 @@ class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
 
         } catch (IOException ex) {
             ex.printStackTrace();
-            msg = "Error :" + ex.getMessage();
+            msg = "Error: " + ex.getMessage();
         }
         return msg;
     }
