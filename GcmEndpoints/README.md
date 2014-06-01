@@ -237,7 +237,7 @@ If your backend is working locally, you can deploy it to Google App Engine. To b
 
 Go back to the Developers Console and note down the project ID (in the red rectangle below).
 
-![Project ID in Google Developers Console](/doc/img/new-developer-console-project-id.png)
+![Project ID in Google Developers Console](/doc/img/developer-console-project-id.png)
 
 
 Then, open `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file in Android Studio and change
