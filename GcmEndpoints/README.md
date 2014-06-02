@@ -42,7 +42,7 @@ To ensure that your backend started successfully, navigate to [http://localhost:
 
 Before testing the application, you will need to obtain a Google Cloud Messaging API key. Open the `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file (it should have been opened by default when you generated the backend), and navigate to this link: [https://console.developers.google.com/flows/enableapi?apiid=googlecloudmessaging&keyType=SERVER_SIDE&r=0.0.0.0/0](https://console.developers.google.com/flows/enableapi?apiid=googlecloudmessaging&keyType=SERVER_SIDE&r=0.0.0.0/0).
 
-![Project creation in Google Developers Console](/doc/img/new-developer-console-project.png)
+![Project creation in Google Developers Console](/doc/img/new-developer-console-project-flow.png)
 
 Choose a "Create a new project" option to create a new [Google Developers Console](https://console.developers.google.com) project (or choose an existing project, if you have one already), and click "Continue".
 
