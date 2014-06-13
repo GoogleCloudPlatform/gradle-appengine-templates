@@ -7,15 +7,19 @@ If you need more abstractions/protections that Endpoints provide (like automated
 
 # 1. Adding a backend in Android Studio
 
-To add the backend to your existing Android app from this backend template, open Android Studio ([installation instructions](https://developer.android.com/sdk/installing/studio.html)) and navigate to "Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend".
+To add the backend to your existing Android app from this backend template, open Android Studio ([installation instructions](https://developer.android.com/sdk/installing/studio.html)) and navigate to "File &rarr; New Module..." or right-click on your project and choose "New &rarr; Module".
 
-![Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend](/doc/img/add-app-engine-backend-menu-scaled.png)
+![New &rarr; Module](/doc/img/add-app-engine-backend-menu-scaled.png)
 
-In the dialog that appears, choose "App Engine Java Servlet Module" and enter module/package names for your new backend.
+In the "New Module" that appears, choose "App Engine Java Servlet Module".
 
-![Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend](/doc/img/add-app-engine-backend-menu-helloworld.png)
+![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-menu-helloworld.png)
 
-Module name which you've entered above (marked with red 1) will be used in your Android Studio project. Package name (marked with red 2) will be used for all classes imported from this template, as shown in the image below.
+Enter the module/package names for your new backend, and choose the "client" module in your project which contains your Android app. The client module will be set up to call your newly generated backend.
+
+![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-dialog-step-2.png)
+
+Module name which you've entered above (marked with red **1**) will be used in your Android Studio project. Package name (marked with red **2**) will be used for all classes imported from this template, as shown in the image below.
 
 ![Added "HelloWorld" backend. Red numbers 1 and 2 indicate that the module name and the package name came from "New App Engine Module" dialog](/doc/img/added-backend-helloworld.png)
 
@@ -25,7 +29,7 @@ As soon as the backend module is added to your project and Gradle sync finishes,
 
 ![Created run configuration](/doc/img/run-configuration.png)
 
-Launching this run configuration will invoke `appengineRun` task in [Gradle plug-in for App Engine](https://github.com/GoogleCloudPlatform/gradle-appengine-plugin), which in turn will start the local App Engine [Java development server](https://developers.google.com/appengine/docs/java/tools/devserver).
+Rebuild your project (via "Build &rarr; Rebuild Project") and launch this run configuration. It will invoke `appengineRun` task in [Gradle plug-in for App Engine](https://github.com/GoogleCloudPlatform/gradle-appengine-plugin), which in turn will start the local App Engine [Java development server](https://developers.google.com/appengine/docs/java/tools/devserver).
 
 To ensure that your backend started successfully, navigate to [http://localhost:8080](http://localhost:8080). If everything went well, you should see the following page:
 
@@ -33,13 +37,13 @@ To ensure that your backend started successfully, navigate to [http://localhost:
 
 # 2. Connecting your Android app to the backend
 
-First of all, you need to add the permission to access internet into the Android manifest of your app (if it's not already there). To achieve this, copy and paste the following line into your `AndroidManifest.xml` file:
+When you created a backend module, your client module has been set up to access internet. In particular, the following permission has been added into your `AndroidManifest.xml` file:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-Secondly, you need to make an HTTP request from your Android app to call this backend. The following code snippet illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) which makes the HTTP request to the backend and prints the incoming result string to a [toast](http://developer.android.com/guide/topics/ui/notifiers/toasts.html) in a given context:
+To call this backend from your Android app, you simply need to make an HTTP request. The following code snippet illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) which makes the HTTP request to the backend and prints the incoming result string to a [toast](http://developer.android.com/guide/topics/ui/notifiers/toasts.html) in a given context:
 
 ```java
 class ServletPostAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
@@ -81,12 +85,12 @@ class ServletPostAsyncTask extends AsyncTask<Pair<Context, String>, Void, String
 
 Finally, you need to invoke this AsyncTask from one of your Android activities. For example, to execute it from `MainActivity` class, add the following code snippet to `MainActivity.onCreate` method:
 ```java
-new ServletPostAsyncTask().execute(new Pair<Context, String>(this, "my favorite name"));
+new ServletPostAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
 ```
 
 ## 2.1. Testing your app in an emulator
 
-If you have added the internet access permission to your `AndroidManifest.xml` file, created a `ServletPostAsyncTask` and added its invokation to one of your Android app activities as per steps above, you should be all set to test your backend locally!
+If you have created a `ServletPostAsyncTask` and added its invokation to one of your Android app activities as per steps above, you should be all set to test your backend locally!
 
 First, launch your backend locally as described in section 1.1. and ensure that you can access it via [http://localhost:8080](http://localhost:8080). Then, change the run configuration back to your Android app and run the Android emulator.
 
