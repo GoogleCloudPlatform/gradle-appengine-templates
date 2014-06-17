@@ -7,11 +7,11 @@ All of these backends are designed to be hosted on App Engine (which provides au
 
 # 1. Usage
 
-This repository contains three backend template types, which can be added into your Android app by navigating to "Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend".
+This repository contains three backend template types, which can be added into your Android app by navigating to "File &rarr; New Module..." menu, or by right-clicking on your project and choosing "New &rarr; Module".
 
-![Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend](/doc/img/add-app-engine-backend-menu.png)
+![Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend](/doc/img/add-app-engine-backend-menu-scaled.png)
 
-In the dialog that appears, choose one out of the following template types:
+In the "New Module" wizard that appears, choose one out of the following template types:
 
 ![Add App Engine Backend Menu](/doc/img/add-app-engine-backend-dialog.png)
 
@@ -36,7 +36,7 @@ If you have any problems adding these backends to your Android applications, con
 ## 3.1. Useful links
 
 Click on the following links to get more information about:
-* [Google App Engine](https://developers.google.com/appengine/)
-* [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints/)
-* [Google Cloud Messaging](http://developer.android.com/google/gcm/index.html)
-* [Android Studio](developer.android.com/sdk/installing/studio.html)
+* [Google App Engine](https://developers.google.com/appengine/),
+* [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints/),
+* [Google Cloud Messaging](http://developer.android.com/google/gcm/index.html),
+* [Android Studio](developer.android.com/sdk/installing/studio.html).
