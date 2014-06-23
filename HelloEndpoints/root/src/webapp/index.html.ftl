@@ -1,49 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hello App Engine Endpoints</title>
+    <title>Hello, Endpoints!</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-  <!--
-    A form that takes a text value and submits it to the endpoint,
-    access to the endpoint is enabled once the client is loaded below
-  -->
-  <form action="javascript:void(0);">
-    <input id="myName" type="text" name="name" />
-    <input id="mySubmit" type="submit" value="Say Hello!" />
-  </form>
-  <br />
-  Check out the <a href="https://developers.google.com/appengine/docs/java/">documentation</a> for more information on Google App Engine for Java.
-  <br />
-  Check out the <a href="https://developers.google.com/appengine/docs/java/endpoints/">endpoints documentation</a> for more information on Google Endpoints for Java.
-  <script type="text/javascript">
-    // a function that enables clicking on the from defined above
+<body role="document" style="padding-top: 70px;">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Hello, Endpoints!</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://developers.google.com/appengine/docs/java/">Google App Engine</a></li>
+                        <li><a href="https://developers.google.com/appengine/docs/java/endpoints/">Google Cloud Endpoints</a></li>
+                        <li><a href="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints">Connecting your Android application to this backend</a></li>
+                    </ul>
+                </li>
+                <li><a href="/_ah/api/explorer">Google Cloud Endpoints API Explorer</a></li>
+                <li><a href="https://console.developers.google.com">Google Developers Console</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container theme-showcase" role="main">
+    <!--
+      Output from Endpoints API call.
+    -->
+    <div class="alert alert-success" style="visibility: collapse;" id="outputAlert"></div>
+
+    <!--
+      A form that takes a text value and submits it to the Endpoint,
+      access to the Endpoint is enabled once the client is loaded below.
+    -->
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Hello, Endpoints!</h1>
+                <p>Enter your name and press the button below to call your Google Cloud Endpoints API.</p>
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control input-lg" placeholder="Name" id="nameInput" />
+                          <span class="input-group-btn">
+                             <button class="btn btn-default btn-primary btn-group btn-lg" type="submit" id="helloButton">Say "Hello" &raquo;</button>
+                          </span>
+                    </div>
+                </form>
+                <br/>
+                <p>If you need step-by-step instructions for connecting your Android application to this backend module, see <a href="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints">"App Engine Java Endpoints Module" template documentation</a>.</p>
+                <p><small>
+                    For more information about Google App Engine for Java, check out the <a href="https://developers.google.com/appengine/docs/java/">App Engine documentation</a>.<br />
+                    To learn more about Google Cloud Endpoints, see <a href="https://developers.google.com/appengine/docs/java/endpoints/">Cloud Endpoints documentation</a>.<br/>
+                    If you'd like to access your generated Google Cloud Endpoints APIs directly, see the <a href="/_ah/api/explorer">Cloud Endpoints API Explorer</a>.
+                </small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // A function that attaches a "Say Hello" button click handler
     function enableClick() {
-      document.getElementById('mySubmit').onclick = function() {
-        var name = document.getElementById('myName').value
+      document.getElementById('helloButton').onclick = function() {
+        var name = document.getElementById('nameInput').value;
         gapi.client.myApi.sayHi({'name': name}).execute(
           function(response) {
-            if(!response.error) {
-              alert(response.result.data);
+            var outputAlertDiv = document.getElementById('outputAlert');
+            outputAlertDiv.style.visibility = 'visible';
+
+            if (!response.error) {
+              outputAlertDiv.className = 'alert alert-success';
+              outputAlertDiv.innerHTML = '<h2>' + response.result.data + '</h2>';
             }
-            else if(response.error) {
-              alert("Error Code : " + response.error.code + " - " + response.error.message);
+            else if (response.error) {
+              outputAlertDiv.className = 'alert alert-danger';
+              outputAlertDiv.innerHTML = '<b>Error Code: </b>' + response.error.code + ' [' + response.error.message + ']';
             }
           }
         );
+        return false;
       }
     }
-    // this is called
+    // This is called initially
     function init() {
-      var apiName = 'myApi'
-      var apiVersion = 'v1'
+      var apiName = 'myApi';
+      var apiVersion = 'v1';
       var apiRoot = '//' + window.location.host + '/_ah/api';
       var callback = function() {
         enableClick();
       }
       gapi.client.load(apiName, apiVersion, callback, apiRoot);
     }
-  </script>
-  <script src="https://apis.google.com/js/client.js?onload=init"></script>
+</script>
+<!--
+ Load the Google APIs Client Library for JavaScript
+ More info here : https://developers.google.com/api-client-library/javascript/reference/referencedocs
+-->
+
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
 </body>
 </html>

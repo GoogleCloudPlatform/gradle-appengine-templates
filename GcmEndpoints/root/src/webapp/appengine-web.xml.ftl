@@ -12,7 +12,7 @@
 
             To get one, follow this link, follow the directions and press "Create" at the end:
 
-              https://console.developers.google.com/flows/enableapi?apiid=googlecloudmessaging&keyType=CLIENT_SIDE_ANDROID&r=${debugKeystoreSha1}%3B${clientPackageName}
+              https://console.developers.google.com/flows/enableapi?apiid=googlecloudmessaging&keyType=SERVER_SIDE&r=0.0.0.0/0
 
             Once you have your API key (which starts with “AIza...”), replace the "gcm.api.key" string in this file.
             -->

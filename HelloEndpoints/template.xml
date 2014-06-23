@@ -27,9 +27,15 @@
   <parameter id="endpointOwnerDomain" name="Endpoint Owner Domain" type="string" constraints="package" default="mycompany.com"/>
   <parameter id="endpointPackagePath" name="Endpoint Package Path" type="string" constraints="package" default="myapp"/>
   <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.6" />
+  <parameter id="docUrl" name="Doc URL" type="string" visibility="false"
+             default="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints"/>
 
 
   <globals file="globals.xml.ftl"/>
   <execute file="recipe.xml.ftl"/>
+
+  <thumbs>
+    <thumb>background_endpoints.png</thumb>
+  </thumbs>
 
 </template>
