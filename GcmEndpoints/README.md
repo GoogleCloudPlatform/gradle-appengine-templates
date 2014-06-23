@@ -269,7 +269,7 @@ After you paste the key and hit Return, your backend will be deployed to App Eng
 
 Once you have deployed your backend to App Engine, you can connect your Android app to it by modifying `GcmRegistrationAsyncTask` class defined in section 2 above. In particular, replace the lines
 ```java
-MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
         .setRootUrl("http://10.0.2.2:8080/_ah/api/") // 10.0.2.2 is localhost's IP address in Android emulator
         .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
             @Override
@@ -280,7 +280,7 @@ MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), 
 ```
 with a single line
 ```java
-MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
+Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
 ```
 
 At this point you should be all set to run your Android app in an emulator or on the physical device, and successfully communicate with your new App Engine backend!
