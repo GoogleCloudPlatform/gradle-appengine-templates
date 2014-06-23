@@ -101,8 +101,13 @@
     function init() {
       var apiName = 'messaging'
       var apiVersion = 'v1'
-      // set the apiRoot to work on a deployed app and locally
-      var apiRoot = '//' + window.location.host + '/_ah/api';
+      var apiRoot = 'https://' + window.location.host + '/_ah/api';
+      if (window.location.hostname == 'localhost'
+          || window.location.hostname == '127.0.0.1'
+          || ((window.location.port != "") && (window.location.port > 999))) {
+            // We're probably running against the DevAppServer
+            apiRoot = 'http://' + window.location.host + '/_ah/api';
+      }
       var callback = function() {
         enableClick();
       }
