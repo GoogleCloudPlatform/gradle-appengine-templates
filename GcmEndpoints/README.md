@@ -86,9 +86,6 @@ class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
     // TODO: change to your own sender ID to Google Developers Console project number, as per instructions above
     private static final String SENDER_ID = "1234567890123"; 
 
-    public GcmRegistrationAsyncTask() {
-    }
-
     @Override
     protected String doInBackground(Context... params) {
         if (regService == null) {
