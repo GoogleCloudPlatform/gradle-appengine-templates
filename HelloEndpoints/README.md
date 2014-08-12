@@ -41,11 +41,14 @@ To start sending requests to the added Cloud Endpoints backend API, you can use 
 
 ```java
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
-    private MyApi myApiService;
+    private static MyApi myApiService = null;
     private Context context;
 
-    public EndpointsAsyncTask() {
-        MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+    @Override
+    protected String doInBackground(Pair<Context, String>... params) {
+        if(myApiService == null) {  // Only do this once
+            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), 
+                    new AndroidJsonFactory(), null)
                 // options for running against local devappserver
                 // - 10.0.2.2 is localhost's IP address in Android emulator
                 // - turn off compression when running against local devappserver
@@ -58,11 +61,9 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
                 });
                 // end options for devappserver
 
-        myApiService = builder.build();
-    }
+            myApiService = builder.build();
+        }
 
-    @Override
-    protected String doInBackground(Pair<Context, String>... params) {
         context = params[0].first;
         String name = params[0].second;
 
