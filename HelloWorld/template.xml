@@ -18,7 +18,11 @@
     format="4"
     revision="1"
     name="App Engine Java Servlet Module"
-    description="Creates an App Engine Gradle Module with a Hello World Servlet">
+    description="Creates an App Engine backend module which uses Cloud Endpoints to convert
+    very simple server-side Java code annotations into a RESTful backend API.&lt;br&gt;&lt;br&gt;
+    Google Cloud Endpoints also provides automated Java object marshalling/unmarshalling to JSON,
+    generation of strongly-typed client libraries that can be called from your Android app,
+    built-in authentication support, and more.">
 
   <category value="AppEngine"/>
 

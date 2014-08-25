@@ -18,7 +18,11 @@
     format="4"
     revision="1"
     name="App Engine Backend with Google Cloud Messaging"
-    description="Creates an App Engine Backend for a Google Cloud Messaging enabled Android application">
+    description="Creates a backend module which uses Google Cloud Messaging (GCM) to send
+    push notifications from your server to your users' Android devices. The GCM service
+    handles the queueing of messages and delivers them to the target Android application
+    running on the target device. To register Android devices with your GCM server, this backend
+    template uses Google Cloud Endpoints.">
 
   <category value="AppEngine"/>
 
