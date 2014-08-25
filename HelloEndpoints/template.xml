@@ -18,12 +18,7 @@
     format="4"
     revision="1"
     name="App Engine Java Endpoints Module"
-    description="Creates the simplest example of an App Engine backend module, containing a Java servlet.
-    This module contains the smallest amount of boilerplate code, which makes it perfect for setting up
-    the backend development environment in Android Studio.&lt;br&gt;&lt;br&gt;If you need the features
-    that Cloud Endpoints provide (such as automated object marshalling/unmarshalling and OAuth 2.0 support) or
-    push notification support, have a look at the &quot;App Engine Java Endpoints Module&quot; and
-    &quot;App Engine Backend with Google Cloud Messaging&quot; templates.">
+    description="Creates an App Engine Gradle Module with a simple Endpoint">
 
   <category value="AppEngine"/>
 
