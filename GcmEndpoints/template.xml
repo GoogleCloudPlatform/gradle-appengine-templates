@@ -18,7 +18,11 @@
     format="4"
     revision="1"
     name="App Engine Backend with Google Cloud Messaging"
-    description="Creates an App Engine Backend for a Google Cloud Messaging enabled Android application">
+    description="Creates a backend module which uses Google Cloud Messaging (GCM) to send
+    push notifications from your server to your user's Android devices. The GCM service
+    handles the queueing of messages and delivers them to the target Android application
+    running on the target device. To register Android devices with your GCM server, this backend
+    template uses Google Cloud Endpoints.">
 
   <category value="AppEngine"/>
 
@@ -27,17 +31,10 @@
   <parameter id="endpointOwnerDomain" name="Endpoint Owner Domain" type="string" constraints="package" default="mycompany.com"/>
   <parameter id="endpointPackagePath" name="Endpoint Package Path" type="string" constraints="package" default="myapp"/>
   <parameter id="apiKey" name="Gcm Api Key" type="string" default="REPLACE WITH YOUR API KEY"/>
-  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.8" />
+  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.14" />
   <parameter id="docUrl" name="Doc URL" type="string" visibility="false"
              default="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/GcmEndpoints"/>
-  <parameter id="sideIconPath" name="Side icon path" type="string" visibility="false"
-             default="/icons/background_gcm.png"/>
 
   <globals file="globals.xml.ftl"/>
   <execute file="recipe.xml.ftl"/>
-
-  <thumbs>
-    <thumb>background_gcm.png</thumb>
-  </thumbs>
-
 </template>

@@ -18,7 +18,11 @@
     format="4"
     revision="1"
     name="App Engine Java Endpoints Module"
-    description="Creates an App Engine Gradle Module with a simple Endpoint">
+    description="Creates an App Engine backend module which uses Cloud Endpoints to convert
+    very simple server-side Java code annotations into a RESTful backend API.&lt;br&gt;&lt;br&gt;
+    Google Cloud Endpoints also provides automated Java object marshalling/unmarshalling to JSON,
+    generation of strongly-typed client libraries that can be called from your Android app,
+    built-in authentication support, and more.">
 
   <category value="AppEngine"/>
 
@@ -26,16 +30,11 @@
   <parameter id="appId" name="Application Id" type="string" constraints="nonempty" default="myApplicationId"/>
   <parameter id="endpointOwnerDomain" name="Endpoint Owner Domain" type="string" constraints="package" default="mycompany.com"/>
   <parameter id="endpointPackagePath" name="Endpoint Package Path" type="string" constraints="package" default="myapp"/>
-  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.8" />
+  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.14" />
   <parameter id="docUrl" name="Doc URL" type="string" visibility="false"
              default="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints"/>
 
 
   <globals file="globals.xml.ftl"/>
   <execute file="recipe.xml.ftl"/>
-
-  <thumbs>
-    <thumb>background_endpoints.png</thumb>
-  </thumbs>
-
 </template>

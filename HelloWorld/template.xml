@@ -18,22 +18,21 @@
     format="4"
     revision="1"
     name="App Engine Java Servlet Module"
-    description="Creates an App Engine Gradle Module with a Hello World Servlet">
+    description="Creates the simplest example of an App Engine backend module containing a Java servlet.
+    This module contains the smallest amount of boilerplate code, which makes it perfect for setting up
+    the backend development environment in Android Studio.&lt;br&gt;&lt;br&gt;If you need the features
+    that Cloud Endpoints provide (such as automated object marshalling/unmarshalling) or
+    push notification support, have a look at the &quot;App Engine Java Endpoints Module&quot; and
+    &quot;App Engine Backend with Google Cloud Messaging&quot; templates.">
 
   <category value="AppEngine"/>
 
   <parameter id="packageName" name="Package name" type="string" constraints="package|nonempty" default="com.mycompany.myapp"/>
   <parameter id="appId" name="Application Id" type="string" constraints="nonempty" default="myApplicationId"/>
-  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.8" />
+  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.14" />
   <parameter id="docUrl" name="Doc URL" type="string" visibility="false"
              default="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloWorld"/>
-  <parameter id="sideIconPath" name="Side icon path" type="string" visibility="false"
-             default="/icons/background_servlet.png"/>
 
   <globals file="globals.xml.ftl"/>
   <execute file="recipe.xml.ftl"/>
-
-  <thumbs>
-    <thumb>background_servlet.png</thumb>
-  </thumbs>
 </template>
