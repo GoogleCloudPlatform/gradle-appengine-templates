@@ -11,9 +11,13 @@ This repository contains three backend template types, which can be added into y
 
 ![Tools &rarr; Google Cloud Tools &rarr; Add App Engine Backend](/doc/img/add-app-engine-backend-menu-scaled.png)
 
-In the "New Module" wizard that appears, choose one out of the following template types:
+In the "New Module" wizard that appears, choose "Google Cloud Module":
 
-![Add App Engine Backend Menu](/doc/img/add-app-engine-backend-dialog.png)
+![Add App Engine Backend Choose Module](/doc/img/choose_module.png)
+
+Then choose one out of the following template types:
+
+![Add App Engine Backend Choose Template](/doc/img/all.png)
 
 1. [App Engine Java Servlet Module](/HelloWorld) [[HelloWorld](/HelloWorld)]: a simple App Engine Java backend servlet with minimal boilerplate code,
 2. [App Engine Java Endpoints Module](/HelloEndpoints) [[HelloEndpoints](/HelloEndpoints)]: a backend which leverages [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints) for automated object marshalling/unmarshalling, generation of strongly-typed Java client libraries and so on,

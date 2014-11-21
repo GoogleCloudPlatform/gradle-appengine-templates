@@ -11,15 +11,15 @@ To add the backend to your existing Android app from this backend template, open
 
 ![New &rarr; Module](/doc/img/add-app-engine-backend-menu-scaled.png)
 
-In the "New Module" that appears, choose "App Engine Java Servlet Module".
+In the "New Module" wizard that appears, choose "Google Cloud Module":
 
-![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-menu-helloworld.png)
+![Add App Engine Backend Choose Module](/doc/img/choose_module.png)
 
-Enter the module/package names for your new backend, and choose the "client" module in your project which contains your Android app. The client module will be set up to call your newly generated backend.
+Then choose "App Engine Java Servlet Module".
 
-![App Engine Java Servlet Module](/doc/img/add-app-engine-backend-dialog-step-2.png)
+![App Engine Java Servlet Module](/doc/img/servlet2.png)
 
-Module name which you've entered above (marked with red **1**) will be used in your Android Studio project. Package name (marked with red **2**) will be used for all classes imported from this template, as shown in the image below.
+Enter the module/package names for your new backend, and choose the "client" module in your project which contains your Android app. The client module will be set up to call your newly generated backend. Module name which you've entered above (marked with red **1**) will be used in your Android Studio project. Package name (marked with red **2**) will be used for all classes imported from this template, as shown in the image below.
 
 ![Added "HelloWorld" backend. Red numbers 1 and 2 indicate that the module name and the package name came from "New App Engine Module" dialog](/doc/img/added-backend-helloworld.png)
 
