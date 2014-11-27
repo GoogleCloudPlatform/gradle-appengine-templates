@@ -1,9 +1,9 @@
-App Engine backend templates in Android Studio
+[App Engine backend templates](https://cloud.google.com/mobile/app_engine/add_module) in Android Studio
 ==========================
 
-You can use [Google App Engine](https://developers.google.com/appengine) backend templates hosted in this repository to add a backend to your existing (or new) Android application from [Android Studio IDE](http://developer.android.com/sdk/installing/studio.html).
+You can use [Google App Engine](https://cloud.google.com/) backend templates hosted in this repository to add a backend to your existing (or new) Android application from [Android Studio IDE](http://developer.android.com/sdk/installing/studio.html).
 
-All of these backends are designed to be hosted on App Engine (which provides autoscaling and high-availability out-of-the-box), and can be used under App Engine's [free resource quotas](https://developers.google.com/appengine/docs/quotas).
+All of these backends are designed to be hosted on App Engine (which provides autoscaling and high-availability out-of-the-box), and can be used under App Engine's [free resource quotas](https://cloud.google.com/appengine/docs/quotas).
 
 # 1. Usage
 
@@ -20,8 +20,8 @@ Then choose one out of the following template types:
 ![Add App Engine Backend Choose Template](/doc/img/all.png)
 
 1. [App Engine Java Servlet Module](/HelloWorld) [[HelloWorld](/HelloWorld)]: a simple App Engine Java backend servlet with minimal boilerplate code,
-2. [App Engine Java Endpoints Module](/HelloEndpoints) [[HelloEndpoints](/HelloEndpoints)]: a backend which leverages [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints) for automated object marshalling/unmarshalling, generation of strongly-typed Java client libraries and so on,
-3. [App Engine Backend with Google Cloud Messaging](/GcmEndpoints) [[GcmEndpoints](/GcmEndpoints)]: a mobile backend with Google Cloud Endpoints and [Google Cloud Messaging](http://developer.android.com/google/gcm) integration, which supports more advanced features like push notifications.
+2. [App Engine Java Endpoints Module](/HelloEndpoints) [[HelloEndpoints](/HelloEndpoints)]: a backend which leverages [Google Cloud Endpoints](https://cloud.google.com/appengine/docs/java/endpoints/) for automated object marshalling/unmarshalling, generation of strongly-typed Java client libraries and so on,
+3. [App Engine Backend with Google Cloud Messaging](/GcmEndpoints) [[GcmEndpoints](/GcmEndpoints)]: a mobile backend with Google Cloud Endpoints and [Google Cloud Messaging](http://developer.android.com/google/gcm/index.html) integration, which supports more advanced features like push notifications.
 
 For detailed instructions on how to use each of these templates to add a backend to your Android app see the individual template directories ([HelloWorld](/HelloWorld), [HelloEndpoints](/HelloEndpoints) or [GcmEndpoints](/GcmEndpoints)).
 
@@ -40,7 +40,7 @@ If you have any problems adding these backends to your Android applications, con
 ## 3.1. Useful links
 
 Click on the following links to get more information about:
-* [Google App Engine](https://developers.google.com/appengine/),
-* [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints/),
+* [Google App Engine](https://cloud.google.com/appengine/docs),
+* [Google Cloud Endpoints](https://cloud.google.com/appengine/docs/java/endpoints/),
 * [Google Cloud Messaging](http://developer.android.com/google/gcm/index.html),
 * [Android Studio](http://developer.android.com/sdk/installing/studio.html).
