@@ -98,33 +98,23 @@ If everything goes well, you should see the following toast in your app:
 
 ## 2.2. Deploying the backend live to App Engine
 
-If your backend is working locally, you can deploy it to Google App Engine. To begin with, create a new project on [Google Developers Console](https://console.developers.google.com) (or choose an existing project, if you have one already).
+If your backend is working locally, you can deploy it to Google App Engine.
 
-![Project creation in Google Developers Console](/doc/img/new-developer-console-project.png)
-Note down the "Project ID" (in this case "android-app-backend") and switch back to Android Studio. In Android Studio, open `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file and change
-```xml
-<application>myApplicationId</application>
-```
-to contain your real Project ID (in this case, again, "android-app-backend"):
-```xml
-<application>android-app-backend</application>
-```
+1. Stop the backend, if it is running locally, by selecting
+**Run** > **Stop**.
 
-If you have started the local Java development server in an earlier step, stop it by opening "Run" tool window (1), choosing your backend run session (2) and pressing the red "Stop" button (3). 
+2. Run **Build** > **Deploy Module to App Engine**.
 
-![Stop local Java development server](/doc/img/stop-devappserver-helloworld.png)
+    + If you are running this task for the first time, you will be prompted to
+sign-in with your Google Account. Choose an account and sign in.<br>
 
-Then, switch to the "Terminal" tab and execute `./gradlew backend:appengineUpdate` command:
+3. In the **Deploy to App Engine** dialog, select your module from the **Deploy To:** dropdown list. Choose "Click here to create a new Google Developers Console project."  This will open [Google Developers Console](https://console.developers.google.com)
 
-![Deployment from terminal, step 1](/doc/img/update-helloworld-1.png)
+4. Create a new project and switch back to the **Deploy to App Engine** dialog in Android Studio. 
 
-If you are running this task for the first time, you will be prompted to sign-in with your Google Account. After choosing the account and signing-in, give permissions to Google App Engine's "appcfg" tool and copy-paste the generated key back into Terminal:
+5. Click the Refresh button in the bottom right corner of the **Deploy To:** dropdown list and then select the project you just created.
 
-![App Engine permissions request](/doc/img/app-engine-permissions.png)
-
-![Deployment from terminal, step 1](/doc/img/update-helloworld-2.png)
-
-After you paste the key and hit Return, your backend will be deployed to App Engine and will be accessible live at [https://&lt;Project ID&gt;.appspot.com](https://cloud.google.com). (In this example, the backend would be hosted at [https://android-app-backend.appspot.com](https://android-app-backend.appspot.com).)
+6. Click **Deploy**. You can monitor the status of your deployment in the Android Studio console.
 
 ## 2.3. Testing against a deployed backend
 
