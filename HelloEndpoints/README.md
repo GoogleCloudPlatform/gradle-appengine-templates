@@ -131,9 +131,11 @@ MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), 
             }
         });
 ```
-with a single line
+with these two lines
 ```java
-MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
+MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+        .setRootUrl("https://android-app-backend.appspot.com/_ah/api/"); 
 ```
+where `android-app-backend` corresponds to your own Project ID created in section 2.2.
 
 At this point you should be all set to run your Android app in an emulator or on the physical device, and successfully communicate with your new App Engine backend!
