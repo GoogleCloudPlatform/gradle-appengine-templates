@@ -105,10 +105,10 @@ If your backend is working locally, you can deploy it to Google App Engine.
 
 2. Run **Build** > **Deploy Module to App Engine**.
 
+3. In the **Deploy to App Engine** dialog, select your module. From the **Deploy To:** dropdown list, choose "Click here to create a new Google Developers Console project."  This will open [Google Developers Console](https://console.developers.google.com)
+
     + If you are running this task for the first time, you will be prompted to
 sign-in with your Google Account. Choose an account and sign in.<br>
-
-3. In the **Deploy to App Engine** dialog, select your module from the **Deploy To:** dropdown list. Choose "Click here to create a new Google Developers Console project."  This will open [Google Developers Console](https://console.developers.google.com)
 
 4. Create a new project and switch back to the **Deploy to App Engine** dialog in Android Studio. 
 
