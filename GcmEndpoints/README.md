@@ -235,39 +235,27 @@ Do not forget to replace `MY_PACKAGE` in the snippet above with your package nam
 
 ## 2.5. Deploying the backend live to App Engine
 
-If your backend is working locally, you can deploy it to Google App Engine. To begin with, associate your backend [Google Developers Console](https://console.developers.google.com) project which you created (or re-used) in step 2.1.
+If your backend is working locally, you can deploy it to Google App Engine.
 
-Go back to the Developers Console and note down the project ID (in the red rectangle below).
+1. Stop the backend, if it is running locally, by selecting
+**Run** > **Stop**.
 
-![Project ID in Google Developers Console](/doc/img/developer-console-project-id.png)
+2. Run **Build** > **Deploy Module to App Engine**.
 
+![Deploy module to App Engine](/doc/img/deploy-addacct.png)
 
-Then, open `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file in Android Studio and change
-```xml
-<application>myApplicationId</application>
-```
-to contain your real Project ID (in this case, again, "android-app-backend"):
-```xml
-<application>android-app-backend</application>
-```
+3. In the **Deploy to App Engine** dialog, select your module. From the **Deploy To:** dropdown list, choose "Click here to create a new Google Developers Console project."  This will open [Google Developers Console](https://console.developers.google.com)
 
-If you have started the local Java development server in an earlier step, stop it by opening "Run" tool window (1), choosing your backend run session (2) and pressing the red "Stop" button (3). 
+    + If you are running this task for the first time, you will be prompted to
+sign-in with your Google Account. Choose an account and sign in.<br>
 
-![Stop local Java development server](/doc/img/stop-devappserver-helloworld.png)
+4. Create a new project and switch back to the **Deploy to App Engine** dialog in Android Studio. 
 
-Then, switch to the "Terminal" tab and execute `./gradlew backend:appengineUpdate` command:
+5. Click the Refresh button ![Deploy module to App Engine](/doc/img/refresh.png) in the bottom right corner of the **Deploy To:** dropdown list and then select the project you just created.
 
-![Deployment from terminal, step 1](/doc/img/update-helloworld-1.png)
+6. Click **Deploy**. You can monitor the status of your deployment in the Android Studio console.
 
-If you are running this task for the first time, you will be prompted to sign-in with your Google Account. After choosing the account and signing-in, give permissions to Google App Engine's "appcfg" tool and copy-paste the generated key back into Terminal:
-
-![App Engine permissions request](/doc/img/app-engine-permissions.png)
-
-![Deployment from terminal, step 1](/doc/img/update-helloworld-2.png)
-
-After you paste the key and hit Return, your backend will be deployed to App Engine and will be accessible live at [https://&lt;Project ID&gt;.appspot.com](https://cloud.google.com). (In this example, the backend would be hosted at [https://android-app-backend.appspot.com](https://android-app-backend.appspot.com).)
-
-## 2.3. Testing against a deployed backend
+## 2.6. Testing against a deployed backend
 
 Once you have deployed your backend to App Engine, you can connect your Android app to it by modifying `GcmRegistrationAsyncTask` class defined in section 2 above. In particular, replace the lines
 ```java
@@ -280,9 +268,11 @@ Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibl
             }
         });
 ```
-with a single line
+with these two lines
 ```java
-Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null);
+Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+        .setRootUrl("https://android-app-backend.appspot.com/_ah/api/"); 
 ```
+where `android-app-backend` corresponds to your own Project ID created in section 2.5.
 
 At this point you should be all set to run your Android app in an emulator or on the physical device, and successfully communicate with your new App Engine backend!
