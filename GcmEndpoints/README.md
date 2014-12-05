@@ -41,17 +41,19 @@ To ensure that your backend started successfully, navigate to [http://localhost:
 
 Before testing the application, you will need to obtain a Google Cloud Messaging API key. Open the `<backend>/src/main/webapp/WEB-INF/appengine-web.xml` file (it should have been opened by default when you generated the backend), and navigate to this link: [https://console.developers.google.com/flows/enableapi?apiid=googlecloudmessaging&keyType=SERVER_SIDE&r=0.0.0.0/0](https://console.developers.google.com/flows/enableapi?apiid=googlecloudmessaging&keyType=SERVER_SIDE&r=0.0.0.0/0).
 
-![Project creation in Google Developers Console](/doc/img/new-developer-console-project-flow.png)
+![Project creation in Google Developers Console](/doc/img/dev-console-gcm-register.png)
 
 Choose a "Create a new project" option to create a new [Google Developers Console](https://console.developers.google.com) project (or choose an existing project, if you have one already), and click "Continue".
 
+Read the Terms of Service and assuming that you agree, check the checkbox to indicate that you have read them and click "Accept".
+
 Once you select or create a project, it will have "Google Cloud Messaging for Android" API enabled automatically. In the following configuration dialog, you can use the supplied "0.0.0.0/0" IP address for testing purposes.
 
-![Creating a new server key in Google Developers Console](/doc/img/developer-console-api.png)
+![Creating a new server key in Google Developers Console](/doc/img/dev-console-server-key.png)
 
 Click "Create" to get the API key for server applications generated for you.
 
-![Server applications API key in Google Developers Console](/doc/img/developer-console-key.png)
+![Server applications API key in Google Developers Console](/doc/img/dev-console-key-view.png)
 
 Copy the generated [API key](http://developer.android.com/google/gcm/gcm.html#apikey) (in a red rectangle, starts with `AIza...`) back into `appengine-web.xml` file, replacing
 ```xml
@@ -64,7 +66,7 @@ with
 
 Finally, go back to your project's overview in [Google Developers Console](https://console.developers.google.com) and note down the project number (in red rectangle below): this will be your Google Cloud Messaging [sender ID](http://developer.android.com/google/gcm/gcm.html#senderid) in the next step.
 
-![Project number in Google Developers Console](/doc/img/developer-console-project.png)
+![Project number in Google Developers Console](/doc/img/dev-console-project-overview.png)
 
 ## 2.2. Registering devices with Google Cloud Messaging backend
 
@@ -85,8 +87,12 @@ class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
     // TODO: change to your own sender ID to Google Developers Console project number, as per instructions above
     private static final String SENDER_ID = "1234567890123"; 
 
+    public GcmRegistrationAsyncTask(Context context) {
+        this.context = context;
+    }
+
     @Override
-    protected String doInBackground(Context... params) {
+    protected String doInBackground(Void... params) {
         if (regService == null) {
             Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), 
                     new AndroidJsonFactory(), null)
@@ -104,8 +110,6 @@ class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
 
             regService = builder.build();
         }
-
-        context = params[0];
 
         String msg = "";
         try {
@@ -141,7 +145,7 @@ Don't forget to replace `SENDER_ID` in the snippet above with your actual Google
 To make the actual registration call from your app, invoke this AsyncTask from one of your Android activities. For example, to execute it from `MainActivity` class, add the following code snippet to `MainActivity.onCreate` method:
 
 ```java
-new GcmRegistrationAsyncTask().execute(this);
+new GcmRegistrationAsyncTask(this).execute();
 ```
 
 ## 2.3. Testing device registration in an emulator
@@ -150,7 +154,7 @@ If you have added an `GcmRegistrationAsyncTask` invokation to one of your Androi
 
 To begin with, make sure that your Android Virtual Device is using Google APIs System Image as illustrated in the screenshot below.
 
-![Android Virtual Device configuration containing Google APIs System Image Target](/doc/img/emulator-avd.png)
+![Android Virtual Device configuration containing Google APIs System Image Target](/doc/img/avd-manager-google-api-image.png)
 
 Then, launch your backend locally as described in section 1.1. and ensure that you can access it via [http://localhost:8080](http://localhost:8080). If you can access the backend locally, change the run configuration back to your Android app and run the Android emulator.
 
