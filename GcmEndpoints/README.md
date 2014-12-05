@@ -3,7 +3,7 @@
 
 [Google Cloud Messaging](http://developer.android.com/google/gcm) (GCM) is a service that allows you to send push notifications from your server to your users' Android devices, and also to receive messages from devices on the same connection. The GCM service handles all aspects of queueing of messages and delivery to the target Android application running on the target device.
 
-This backend template employs [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints) to to define a RESTful API which registers Android devices with your GCM server and allows you to send string messages to registered devices. After defining this API, strongly-typed client libraries are generated automatically and can be called from your Android app, as described below.
+This backend template employs [Google Cloud Endpoints](https://developers.google.com/appengine/docs/java/endpoints) to define a RESTful API which registers Android devices with your GCM server and allows you to send string messages to registered devices. After defining this API, strongly-typed client libraries are generated automatically and can be called from your Android app, as described below.
 
 # 1. Adding a backend in Android Studio
 
