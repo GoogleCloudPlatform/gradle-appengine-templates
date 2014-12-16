@@ -26,6 +26,7 @@
 
   <category value="AppEngine"/>
 
+  <parameter id="moduleType" name="Module Type" type="string" visibility="false" default="Endpoints"/>
   <parameter id="packageName" name="Package name" type="string" constraints="package|nonempty" default="com.mycompany.myapp"/>
   <parameter id="appId" name="Application Id" type="string" constraints="nonempty" default="myApplicationId"/>
   <parameter id="endpointOwnerDomain" name="Endpoint Owner Domain" type="string" constraints="package" default="mycompany.com"/>
