@@ -41,7 +41,7 @@ To start sending requests to the added Cloud Endpoints backend API, you can use 
 
 ```java
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
-    private static MyApi myApiService = null;
+    private MyApi myApiService = null;
     private Context context;
 
     @Override
