@@ -79,7 +79,7 @@ Furthermore, a `RegistrationEndpoint` [Cloud Endpoints API](https://developers.g
 Here is an example code snippet which illustrates how to create an [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html) to register the user's device with your new backend:
 
 ```java
-class GcmRegistrationAsyncTask extends AsyncTask<Context, Void, String> {
+class GcmRegistrationAsyncTask extends AsyncTask<Void, Void, String> {
     private static Registration regService = null;
     private GoogleCloudMessaging gcm;
     private Context context;
