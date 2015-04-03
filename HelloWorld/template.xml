@@ -30,7 +30,7 @@
   <parameter id="moduleType" name="Module Type" type="string" visibility="false" default="Servlet"/>
   <parameter id="packageName" name="Package name" type="string" constraints="package|nonempty" default="com.mycompany.myapp"/>
   <parameter id="appId" name="Application Id" type="string" constraints="nonempty" default="myApplicationId"/>
-  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.14" />
+  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.18" />
   <parameter id="docUrl" name="Doc URL" type="string" visibility="false"
              default="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloWorld"/>
 
