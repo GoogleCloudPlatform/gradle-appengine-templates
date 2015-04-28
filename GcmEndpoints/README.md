@@ -85,7 +85,7 @@ class GcmRegistrationAsyncTask extends AsyncTask<Void, Void, String> {
     private Context context;
 
     // TODO: change to your own sender ID to Google Developers Console project number, as per instructions above
-    private static final String SENDER_ID = "1234567890123"; 
+    private static final String SENDER_ID = "1234567890123";
 
     public GcmRegistrationAsyncTask(Context context) {
         this.context = context;
@@ -94,14 +94,14 @@ class GcmRegistrationAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         if (regService == null) {
-            Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), 
+            Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                 // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
                 // otherwise they can be skipped
                 .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                 .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                     @Override
-                    public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) 
+                    public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
                             throws IOException {
                         abstractGoogleClientRequest.setDisableGZipContent(true);
                     }
@@ -253,11 +253,13 @@ If your backend is working locally, you can deploy it to Google App Engine.
     + If you are running this task for the first time, you will be prompted to
 sign-in with your Google Account. Choose an account and sign in.<br>
 
-4. Create a new project and switch back to the **Deploy to App Engine** dialog in Android Studio. 
+4. Create a new project and switch back to the **Deploy to App Engine** dialog in Android Studio.
 
-5. Click the Refresh button ![Deploy module to App Engine](/doc/img/refresh.png) in the bottom right corner of the **Deploy To:** dropdown list and then select the project you just created.
+5. This would probably be a good time to update your `src/main/webapp/WEB-INF/appengine-web.xml` file's `<application>` property and replace `myApplicationId` with the ID of the project that you just created. This will be important if you try to deploy from the command line.
 
-6. Click **Deploy**. You can monitor the status of your deployment in the Android Studio console.
+6. Click the Refresh button ![Deploy module to App Engine](/doc/img/refresh.png) in the bottom right corner of the **Deploy To:** dropdown list and then select the project you just created.
+
+7. Click **Deploy**. You can monitor the status of your deployment in the Android Studio console.
 
 ## 2.6. Testing against a deployed backend
 
@@ -275,7 +277,7 @@ Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibl
 with these two lines
 ```java
 Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-        .setRootUrl("https://android-app-backend.appspot.com/_ah/api/"); 
+        .setRootUrl("https://android-app-backend.appspot.com/_ah/api/");
 ```
 where `android-app-backend` corresponds to your own Project ID created in section 2.5.
 
