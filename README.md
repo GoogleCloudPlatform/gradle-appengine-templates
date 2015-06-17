@@ -35,7 +35,7 @@ These templates use [FreeMarker](http://freemarker.org) (but it is not required 
 
 # 3. Troubleshooting
 
-If you have any problems adding these backends to your Android applications, contact us on [Android Developers G+ community](https://plus.google.com/+AndroidDevelopers) or write us a question on StackOverflow using [google-app-engine](http://stackoverflow.com/questions/tagged/google-app-engine) or [google-cloud-endpoints](http://stackoverflow.com/questions/tagged/google-app-engine) tags.
+If you have any problems adding these backends to your Android applications, contact us on [Android Developers G+ community](https://plus.google.com/+AndroidDevelopers) or write us a question on StackOverflow using [google-app-engine](http://stackoverflow.com/questions/tagged/google-app-engine) or [google-cloud-endpoints](http://stackoverflow.com/questions/tagged/google-cloud-endpoints) tags.
 
 ## 3.1. Useful links
 
