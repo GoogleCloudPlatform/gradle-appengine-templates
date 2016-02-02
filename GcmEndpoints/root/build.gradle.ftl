@@ -26,7 +26,7 @@ dependencies {
   compile 'com.google.appengine:appengine-endpoints:${appEngineVersion}'
   compile 'com.google.appengine:appengine-endpoints-deps:${appEngineVersion}'
   compile 'javax.servlet:servlet-api:2.5'
-  compile 'com.googlecode.objectify:objectify:4.0b3'
+  compile 'com.googlecode.objectify:objectify:5.1.9'
   compile 'com.ganyo:gcm-server:1.0.2'
 }
 

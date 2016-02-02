@@ -27,7 +27,15 @@ import static ${packageName}.OfyService.ofy;
  * authentication! If this app is deployed, anyone can access this endpoint! If
  * you'd like to add authentication, take a look at the documentation.
  */
-@Api(name = "registration", version = "v1", namespace = @ApiNamespace(ownerDomain = "${endpointOwnerDomain}", ownerName = "${endpointOwnerDomain}", packagePath="${endpointPackagePath}"))
+@Api(
+  name = "registration",
+  version = "v1",
+  namespace = @ApiNamespace(
+    ownerDomain = "${endpointOwnerDomain}",
+    ownerName = "${endpointOwnerDomain}",
+    packagePath="${endpointPackagePath}"
+  )
+)
 public class RegistrationEndpoint {
 
     private static final Logger log = Logger.getLogger(RegistrationEndpoint.class.getName());

@@ -15,8 +15,8 @@
   ~ limitations under the License.
   -->
 <template
-    format="4"
-    revision="1"
+    format="5"
+    revision="2"
     name="App Engine Java Endpoints Module"
     description="Creates an App Engine backend module which uses Cloud Endpoints to convert
     very simple server-side Java code annotations into a RESTful backend API.&lt;br&gt;&lt;br&gt;
@@ -31,7 +31,7 @@
   <parameter id="appId" name="Application Id" type="string" constraints="nonempty" default="myApplicationId"/>
   <parameter id="endpointOwnerDomain" name="Endpoint Owner Domain" type="string" constraints="package" default="mycompany.com"/>
   <parameter id="endpointPackagePath" name="Endpoint Package Path" type="string" constraints="package" default="myapp"/>
-  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.18" />
+  <parameter id="appEngineVersion" name="AppEngine Version" type="string" default="1.9.28" />
   <parameter id="docUrl" name="Doc URL" type="string" visibility="false"
              default="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints"/>
 

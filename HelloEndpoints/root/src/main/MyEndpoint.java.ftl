@@ -13,7 +13,15 @@ import com.google.api.server.spi.config.ApiNamespace;
 import javax.inject.Named;
 
 /** An endpoint class we are exposing */
-@Api(name = "myApi", version = "v1", namespace = @ApiNamespace(ownerDomain = "${endpointOwnerDomain}", ownerName = "${endpointOwnerDomain}", packagePath="${endpointPackagePath}"))
+@Api(
+  name = "myApi",
+  version = "v1",
+  namespace = @ApiNamespace(
+    ownerDomain = "${endpointOwnerDomain}",
+    ownerName = "${endpointOwnerDomain}",
+    packagePath="${endpointPackagePath}"
+  )
+)
 public class MyEndpoint {
 
     /** A simple endpoint method that takes a name and says Hi back */
