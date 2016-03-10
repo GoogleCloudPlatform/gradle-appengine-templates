@@ -54,26 +54,64 @@ class ServletPostAsyncTask extends AsyncTask<Pair<Context, String>, Void, String
         context = params[0].first;
         String name = params[0].second;
 
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://10.0.2.2:8080/hello"); // 10.0.2.2 is localhost's IP address in Android emulator
         try {
-            // Add name data to request
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-            nameValuePairs.add(new BasicNameValuePair("name", name));
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            // Set up the request
+            URL url = new URL("http://10.0.2.2:8080/hello");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
 
-            // Execute HTTP Post Request
-            HttpResponse response = httpClient.execute(httpPost);
-            if (response.getStatusLine().getStatusCode() == 200) {
-                return EntityUtils.toString(response.getEntity());
+            // Build name data request params
+            Map<String, String> nameValuePairs = new HashMap<>();
+            nameValuePairs.put("name", name);
+            String postParams = buildPostDataString(nameValuePairs);
+
+            // Execute HTTP Post
+            OutputStream outputStream = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            writer.write(postParams);
+            writer.flush();
+            writer.close();
+            outputStream.close();
+            connection.connect();
+
+            // Read response
+            int responseCode = connection.getResponseCode();
+            StringBuilder response = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
             }
-            return "Error: " + response.getStatusLine().getStatusCode() + " " + response.getStatusLine().getReasonPhrase();
+            reader.close();
 
-        } catch (ClientProtocolException e) {
-            return e.getMessage();
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                return response.toString();
+            }
+            return "Error: " + responseCode + " " + connection.getResponseMessage();
+
         } catch (IOException e) {
             return e.getMessage();
         }
+    }
+
+    private String buildPostDataString(Map<String, String> params) throws UnsupportedEncodingException {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (first) {
+                first = false;
+            } else {
+                result.append("&");
+            }
+
+            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+        }
+
+        return result.toString();
     }
 
     @Override
