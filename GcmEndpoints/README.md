@@ -95,6 +95,26 @@ You should see the following in your GCM Quickstart app:
 
 ![Emulator successfully registered with "GcmEndpoints" backend](/doc/img/emulator-gcm.png)
 
+## 2.3.1. Testing device registration on a physical device
+
+Testing on a physical device with a local development server requires minor changes to your configuration.
+
+1. You must make your development server accessible to the network by setting it to listen to external connections. You can do this by editing the build.gradle for the backend project and setting the httpAddress.
+    ```gradle
+    appengine {
+      ....
+      httpAddress = "0.0.0.0"
+      ....
+    }
+    ```
+
+1. You must also change the endpoint root url to point to your computer's ip address when creating the endpoint .
+    ```java
+    Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(),
+            new AndroidJsonFactory(), null)
+            .setRootUrl("http://<my-computer-address>:8080/_ah/api/")
+            ....
+    ```
 ## 2.4. Showing push notifications from GCM backend
 
 You should now be set up to receive push notifications coming from the generated backend. To test this out, ensure your GCM backend is running locally as described in section 1.1, enter a test message, and send:
