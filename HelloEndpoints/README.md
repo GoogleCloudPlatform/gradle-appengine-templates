@@ -134,6 +134,7 @@ If your backend is working locally, you can deploy it to Google App Engine.
 sign-in with your Google Account. Choose an account and sign in.<br>
 
 4. Create a new project and switch back to the **Deploy to App Engine** dialog in Android Studio.
+    + You may also need to initialize the application in App Engine before being able to deploy a new project. To do so, go to the [Google Cloud Shell](https://console.cloud.google.com/appengine) and run the following command: `gcloud app create`. Select the region in the follow-up prompt and your application should initialize.
 
 5. This would probably be a good time to update your `src/main/webapp/WEB-INF/appengine-web.xml` file's `<application>` property and replace `myApplicationId` with the ID of the project that you just created. This will be important if you try to deploy from the command line.
 
