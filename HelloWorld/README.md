@@ -1,3 +1,9 @@
+DEPRECATION NOTICE
+==================
+Creating new App Engine backends in Android Studio will be deprecated in Android Studio 3.0.
+
+If you would like to create a mobile backend in Android Studio please see [Firebase on Android Studio](https://firebase.google.com/docs/android/setup).
+
 "App Engine Java Servlet Module" Template
 ===========================================
 
